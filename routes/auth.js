@@ -23,5 +23,11 @@ router.post("/register", async (req, res) => {
     }
 })
 
+router.get("/api/ping", (req, res) => {
+    res.json(
+        { message: "still alive. day 108 active" }
+    )
+})
+
 export default router;
 
