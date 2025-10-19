@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./db.js"
 import authRoutes from "./routes/auth.js"
 import { errorHandler } from "./middleware/errorHandler.js";
+import cors from "cors";
 
 
 dotenv.config();
@@ -11,6 +12,10 @@ connectDB();
 
 const app = express()
 app.use(express.json())
+app.use(cors({
+  origin: "*",
+  credentials: true,
+}));
 app.use("/api/auth", authRoutes)
 app.use(errorHandler)
 
