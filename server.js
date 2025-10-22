@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./db.js"
 import router from "./routes/auth.js"
+import router1 from "./routes/ideaRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import cors from "cors"
 
@@ -18,6 +19,7 @@ app.use(cors({
     credentials: true,
 }));
 app.use("/api/auth", router)
+app.use("/api/ideas", router1)
 app.use(errorHandler)
 
 
