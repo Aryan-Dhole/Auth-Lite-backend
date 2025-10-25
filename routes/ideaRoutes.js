@@ -52,17 +52,21 @@ router1.put("/:id", protect, async (req, res) => {
 //Delete Idea
 router1.delete("/:id", protect, async (req, res) => {
     try {
-        const idea = await Idea.findByIdAndDelete(req.params.id);
+        const idea = await Idea.findById(req.params.id);
         if (!idea) return res.status(404).json({ error: "Idea not found" });
+
+        // ✅ Check ownership BEFORE deleting
         if (idea.user.toString() !== req.user.id)
             return res.status(403).json({ error: "Not authorized" });
 
-        await idea.deleteOne();
+        await Idea.findByIdAndDelete(req.params.id);
+
         res.status(200).json({ message: "Idea deleted successfully" });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Server error" });
     }
 });
+
 
 export default router1
