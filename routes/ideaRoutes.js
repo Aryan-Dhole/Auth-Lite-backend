@@ -52,7 +52,7 @@ router1.put("/:id", protect, async (req, res) => {
 //Delete Idea
 router1.delete("/:id", protect, async (req, res) => {
     try {
-        const idea = await Idea.findById(req.params.id);
+        const idea = await Idea.findByIdAndDelete(req.params.id);
         if (!idea) return res.status(404).json({ error: "Idea not found" });
         if (idea.user.toString() !== req.user.id)
             return res.status(403).json({ error: "Not authorized" });
